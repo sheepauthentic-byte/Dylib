@@ -1,0 +1,33 @@
+#include "AutoRoll.h"
+
+__attribute__((visibility("default")))
+void AutoRollInitialize(void) {
+}
+
+__attribute__((visibility("default")))
+void AutoRollConfigure(
+    const char *name,
+    int copies,
+    int minimumGold
+) {
+    ARConfig config = {
+        name,
+        copies,
+        minimumGold,
+        2,
+        0
+    };
+
+    ar_configure(&config);
+}
+
+__attribute__((visibility("default")))
+void AutoRollEnable(int enabled) {
+    ar_set_enabled(enabled);
+}
+
+__attribute__((visibility("default")))
+int AutoRollTick(int gold, int copiesFound) {
+    ar_update(gold, copiesFound);
+    return ar_should_roll();
+}
